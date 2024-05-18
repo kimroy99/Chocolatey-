@@ -1,0 +1,60 @@
+Your Sensei
+How to install Chocolatey, a package manager for Windows
+
+ Method 1 Via Power Shell
+Step 1: Open PowerShell as Administrator
+
+Step 2: Set Execution Policy to AllSigned
+    Check in YB Video
+
+Step 3: Bypass Policy if Needed]
+   Check in YB Video
+
+Step 4: Configure Security Protocol
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+
+Step 5: Install Chocolatey
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+ Method 2 Via CMD
+ Command Breakdown
+
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command " [System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+
+1. @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe":
+   - This part specifies the path to the PowerShell executable. %SystemRoot% is an environment variable that typically resolves to C:\Windows.
+
+2. -NoProfile:
+   - This option tells PowerShell not to load the user's profile scripts. This ensures a clean environment without any custom configurations that might interfere with the script.
+
+3. -InputFormat None:
+   - Specifies that no interactive input is expected from the user. This sets the input format to None.
+
+4. -ExecutionPolicy Bypass:
+   - This sets the execution policy to Bypass, allowing the script to run without any restrictions. It is used here to temporarily allow the execution of the script without modifying the system-wide policy.
+
+5. -Command:
+   - This specifies the command to be executed by PowerShell.
+
+6. "[System.Net.ServicePointManager]::SecurityProtocol = 3072;:
+   - This command sets the security protocol to TLS 1.2. 3072 is the value for TLS 1.2, which ensures secure communication with the server.
+
+7. iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))":
+   - iex is short for Invoke-Expression, which executes the string that follows it as a command.
+   - (New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1') downloads the Chocolatey installation script from the specified URL.
+
+8. &&:
+   - This is a logical AND operator used in command lines to run the next command only if the previous command was successful.
+
+9. SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin":
+   - This appends the Chocolatey bin directory to the system PATH environment variable. %ALLUSERSPROFILE% typically resolves to C:\ProgramData, so the full path being added is C:\ProgramData\chocolatey\bin.
+
+ Summary
+The entire command does the following:
+1. Runs PowerShell without loading profiles and with execution policy set to bypass.
+2. Sets the security protocol to TLS 1.2.
+3. Downloads and executes the Chocolatey installation script from the internet.
+4. Updates the system PATH environment variable to include Chocolatey's binary directory, making it easier to use Chocolatey from the command line.
+
+Thank you :)
